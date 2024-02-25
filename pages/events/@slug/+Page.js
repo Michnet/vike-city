@@ -1,6 +1,6 @@
 export { Page }
 
-function Page(pageContext) {
- console.log('pageContext', pageContext);
+function Page(prop) {
+    console.log('prop', prop);
   return  '<h2>How was it possible</h2>';
 }

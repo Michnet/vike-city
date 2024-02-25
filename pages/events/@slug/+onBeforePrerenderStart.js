@@ -1,3 +1,6 @@
+import ky from "ky";
+import { serializeQuery } from "../../../functions/base";
+
 // https://vike.dev/onBeforePrerenderStart
 export { onBeforePrerenderStart }
 
@@ -6,24 +9,14 @@ export { onBeforePrerenderStart }
 
 const onBeforePrerenderStart = async () => {
   //const movies = await getStarWarsMovies()
-  const dataUrl = `https://lyvecityclub.com/wp-json/m-api/v1/ids=${pageContext.routeParams.slug}`
-  const movies = fetch(dataUrl, {type: 'job_listing', listing_type:'event', slugs: true});
+  const dataUrl = `https://lyvecityclub.com/wp-json/m-api/v1/ids?${serializeQuery({type: 'job_listing', listing_type:'event', slugs: true}) }`
+  //const movies = fetch(dataUrl, {type: 'job_listing', listing_type:'event', slugs: true});
 
+  const moviesSlugs = await ky.get(dataUrl).json();
+   console.log('movieSlugs', moviesSlugs);
   return [
-    {
-      url: "/star-wars",
-      // We already provide `pageContext` here so that Vike
-      // will *not* have to call the `data()` hook defined
-      // above in this file.
-      pageContext: {
-        data: {
-          //movies: filterMoviesData(movies),
-          //title: getTitle(movies)
-        }
-      }
-    },
-    ...movies.map(movie => {
-      const url = `/star-wars/${movie.id}`
+    ...moviesSlugs.map(movie => {
+      const url = `/events/${movie}`
       return {
         url,
         // Note that we can also provide the `pageContext` of other pages.

@@ -5,10 +5,10 @@ import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 import { PageLayout } from './PageLayout'
 
 async function onRenderHtml(pageContext) {
-  const { Page, routeParams } = pageContext;
-  
+  const { Page, data } = pageContext;
+
   const pageHtml = await PageLayout(Page());
-  return escapeInject`<!DOCTYPE html>
+  const documentHtml = escapeInject`<!DOCTYPE html>
     <html l>
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,5 +47,10 @@ async function onRenderHtml(pageContext) {
       <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
       <script type="text/javascript" src="/scripts/custom.js"></script>
       </body>
-    </html>`
+    </html>`;
+
+    return {
+      documentHtml,
+      pageContext: data
+    }
 }

@@ -4,7 +4,6 @@ export { onRenderClient }
 import { PageLayout } from './PageLayout'
 
 async function onRenderClient(pageContext) {
-  console.log('pageContext', pageContext);
   if (!pageContext.isHydration) {
     const { Page } = pageContext
     const pageHtml = await PageLayout(Page())
