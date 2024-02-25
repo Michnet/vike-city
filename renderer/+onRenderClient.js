@@ -3,10 +3,10 @@ export { onRenderClient }
 
 import { PageLayout } from './PageLayout'
 
-async function onRenderClient(pageContext) {
+function onRenderClient(pageContext) {
   if (!pageContext.isHydration) {
-    const { Page } = pageContext
-    const pageHtml = await PageLayout(Page())
+    const { Page, data } = pageContext
+    const pageHtml = PageLayout(Page(), data);
     document.getElementById('page-view').innerHTML = pageHtml
   }
 }

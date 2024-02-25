@@ -2,8 +2,9 @@ export { PageLayout }
 
 import './PageLayout.css'
 
-async function PageLayout(children) {
-   return await Content(children).then((res) => res)
+ function PageLayout(children, data) {
+  console.log('data in layout', data);
+   return  Content(children)/* .then((res) => res) */
 }
 
 function Layout(children) {
@@ -42,15 +43,12 @@ function Sidebar(children) {
   )
 }
 
-async function Content(children) {
+ function Content(children) {
   // prettier-ignore
   // biome-ignore format:
   return (
 `<div class='p_content' 
   style="${[
-    'padding: 20px',
-    'padding-bottom: 50px',
-    'border-left: 2px solid #eee',
     'min-height: 100vh'
   ].join(';')}"
 >

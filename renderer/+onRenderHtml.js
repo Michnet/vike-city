@@ -7,7 +7,8 @@ import { PageLayout } from './PageLayout'
 async function onRenderHtml(pageContext) {
   const { Page, data } = pageContext;
 
-  const pageHtml = await PageLayout(Page());
+  const pageHtml =  PageLayout(Page(), data);
+  const {title} = data ?? {};
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html l>
     <head>

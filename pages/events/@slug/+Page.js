@@ -1,6 +1,7 @@
+import pageHt from '/components/pages/event.html?raw'
+
 export { Page }
 
-function Page(prop) {
-    console.log('prop', prop);
-  return  '<h2>How was it possible</h2>';
+function Page() {
+  return  `${pageHt}`;
 }
